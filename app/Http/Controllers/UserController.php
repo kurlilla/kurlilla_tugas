@@ -116,7 +116,7 @@ class UserController extends Controller
             'jam' => now()->format('H.i.s'),
         );
 
-        $pdf = Pdf::loadView('admin/user/pdf',$data);
+        $pdf = Pdf::loadView('admin/user/pdf', $data);
         return $pdf->setPaper('a4','landscape')->stream('DataUser_'.$filename.'.pdf');
     }
 }
