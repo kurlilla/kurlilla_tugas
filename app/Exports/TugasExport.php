@@ -2,15 +2,19 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use App\Models\Tugas;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class TugasExport implements FromCollection
+class TugasExport implements FromView
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    public function view(): View
     {
-        //
+        $data = array(
+            'tugas' => Tugas::with('user')->get(),
+            'tanggal' => now()->format('d-m-Y'),
+            'jam' => now()->format('H.i.s'),
+        );
+        return view('admin/tugas/excel',$data);
     }
 }
